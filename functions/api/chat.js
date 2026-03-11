@@ -54,7 +54,12 @@ export async function onRequestPost(context) {
 /* ── Doubao (Volcengine ARK — OpenAI-compatible) ──────────────────────────── */
 
 async function callDoubao(apiKey, systemPrompt, messages) {
-  if (!apiKey) return jsonError('DOUBAO_API_KEY 未配置', 500);
+  if (!apiKey) {
+    return jsonError(
+      'DOUBAO_API_KEY 未配置。若当前是分支预览链接，请在 Cloudflare 项目 Settings → Environment variables 中为 **Preview** 添加 DOUBAO_API_KEY 并重新部署。',
+      500
+    );
+  }
 
   const upstream = await fetch('https://ark.volcengine.com/api/v3/chat/completions', {
     method: 'POST',
@@ -85,7 +90,12 @@ async function callDoubao(apiKey, systemPrompt, messages) {
 /* ── Gemini (Google Generative Language) ──────────────────────────────────── */
 
 async function callGemini(apiKey, systemPrompt, messages) {
-  if (!apiKey) return jsonError('GEMINI_API_KEY 未配置', 500);
+  if (!apiKey) {
+    return jsonError(
+      'GEMINI_API_KEY 未配置。若当前是分支预览链接，请在 Cloudflare 项目 Settings → Environment variables 中为 **Preview** 添加 GEMINI_API_KEY 并重新部署。',
+      500
+    );
+  }
 
   // Convert OpenAI-style messages to Gemini contents format
   const contents = messages.map((m) => ({
