@@ -2,3 +2,16 @@
 # 项目名需与 Cloudflare 控制台里创建的 Pages 项目一致
 name = "briefreport"
 pages_build_output_dir = "."
+
+# ── AI Chat 功能所需的环境变量 ──────────────────────────────────────────
+# 在 Cloudflare Pages 控制台 → Settings → Environment Variables 中配置：
+#
+#   DOUBAO_API_KEY   — 火山引擎 ARK API 密钥（豆包 Pro 32k）
+#                      获取地址：https://console.volcengine.com/ark/region:ark+cn-beijing/apiKey
+#
+#   GEMINI_API_KEY   — Google AI Studio API 密钥（Gemini 2.0 Flash）
+#                      获取地址：https://aistudio.google.com/app/apikey
+#
+# 本地开发时可使用 wrangler secret：
+#   npx wrangler pages secret put DOUBAO_API_KEY
+#   npx wrangler pages secret put GEMINI_API_KEY
