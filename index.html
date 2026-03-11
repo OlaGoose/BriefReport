@@ -770,7 +770,7 @@
         }
 
         /* ================================================================
-           AI CHAT WIDGET
+           AI CHAT — Full-screen modal (Apple-style animation)
         ================================================================ */
         #ai-chat-container {
             position: fixed;
@@ -817,31 +817,50 @@
             pointer-events: none;
         }
 
-        /* ── Chat panel ── */
+        /* ── Backdrop (Apple-style dimmed overlay) ── */
+        #ai-chat-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(0);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #ai-chat-container.ai-modal-open #ai-chat-backdrop {
+            opacity: 1;
+            pointer-events: all;
+            backdrop-filter: blur(4px);
+            transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), backdrop-filter 0.4s ease;
+        }
+
+        /* ── Full-screen chat panel (content keeps current UI) ── */
         .ai-chat-panel {
-            position: absolute;
-            bottom: 68px;
-            right: 0;
-            width: 400px;
-            max-height: 580px;
+            position: fixed;
+            inset: 0;
+            z-index: 10001;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            max-width: none;
+            max-height: none;
+            margin: 0;
             background: var(--cream-mid);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow:
-                0 12px 48px rgba(0,0,0,0.22),
-                0 2px 8px rgba(0,0,0,0.08),
-                0 0 0 1px rgba(184,150,42,0.14);
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             opacity: 0;
-            transform: translateY(14px) scale(0.97);
+            transform: scale(0.92);
             pointer-events: none;
-            transition: opacity 0.22s ease, transform 0.22s ease;
+            transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
         .ai-chat-panel.ai-panel-open {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: scale(1);
             pointer-events: all;
         }
 
@@ -1141,7 +1160,6 @@
         }
         @media (max-width: 460px) {
             #ai-chat-container { bottom: 16px; right: 16px; }
-            .ai-chat-panel { width: calc(100vw - 32px); max-height: 500px; }
         }
     </style>
 </head>
@@ -1973,6 +1991,9 @@
         <span class="ai-chat-badge">AI</span>
     </button>
 
+    <!-- Full-screen backdrop -->
+    <div id="ai-chat-backdrop" aria-hidden="true"></div>
+
     <!-- Chat panel -->
     <div id="ai-chat-panel" class="ai-chat-panel" role="dialog" aria-modal="true" aria-label="AI 分析助手">
 
@@ -2077,8 +2098,10 @@
     }
 
     /* ── DOM references ─────────────────────────────────────────────────── */
+    var container   = document.getElementById('ai-chat-container');
     var toggle      = document.getElementById('ai-chat-toggle');
     var panel       = document.getElementById('ai-chat-panel');
+    var backdrop    = document.getElementById('ai-chat-backdrop');
     var closeBtn    = document.getElementById('ai-chat-close');
     var messagesEl  = document.getElementById('ai-messages');
     var inputEl     = document.getElementById('ai-input');
@@ -2108,9 +2131,12 @@
         messagesEl.appendChild(wrap);
     }
 
-    /* ── Open / close ───────────────────────────────────────────────────── */
+    /* ── Open / close (full-screen modal, Apple-style) ───────────────────── */
     function openPanel() {
         isOpen = true;
+        document.body.style.overflow = 'hidden';
+        container.classList.add('ai-modal-open');
+        backdrop.setAttribute('aria-hidden', 'false');
         panel.classList.add('ai-panel-open');
         panel.removeAttribute('aria-hidden');
         showWelcome();
@@ -2119,12 +2145,16 @@
     }
     function closePanel() {
         isOpen = false;
+        document.body.style.overflow = '';
+        container.classList.remove('ai-modal-open');
+        backdrop.setAttribute('aria-hidden', 'true');
         panel.classList.remove('ai-panel-open');
         panel.setAttribute('aria-hidden', 'true');
     }
 
     toggle.addEventListener('click', function () { isOpen ? closePanel() : openPanel(); });
     closeBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
 
     // Keyboard: Escape closes
     document.addEventListener('keydown', function (e) {
