@@ -1,12 +1,9 @@
 /**
  * Cloudflare Pages Function: /api/chat
  *
- * Proxies streaming chat requests to either:
- *  - 豆包 (Doubao) via the Volcengine ARK API  (OpenAI-compatible)
- *  - Gemini via Google's Generative Language API
+ * Proxies streaming chat requests to Gemini via Google's Generative Language API.
  *
- * Required environment variables (set in Cloudflare dashboard or wrangler secret):
- *   DOUBAO_API_KEY  — Volcengine ARK API key
+ * Required environment variable (set in Cloudflare dashboard or wrangler secret):
  *   GEMINI_API_KEY  — Google AI Studio API key
  */
 
@@ -25,7 +22,7 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { messages, model, pageContext } = body;
+    const { messages, pageContext } = body;
 
     if (!messages || !Array.isArray(messages)) {
       return jsonError('messages 参数无效', 400);
@@ -38,53 +35,10 @@ export async function onRequestPost(context) {
       `不足部分可补充背景知识。请用中文回答，保持专业、简洁的风格。\n\n` +
       `【简报内容】\n${pageContext || '（未获取到简报内容）'}`;
 
-    if (model === 'doubao') {
-      return callDoubao(env.DOUBAO_API_KEY, systemPrompt, messages);
-    }
-    if (model === 'gemini') {
-      return callGemini(env.GEMINI_API_KEY, systemPrompt, messages);
-    }
-
-    return jsonError('不支持的模型，请选择 doubao 或 gemini', 400);
+    return callGemini(env.GEMINI_API_KEY, systemPrompt, messages);
   } catch (e) {
     return jsonError(e.message || '服务器内部错误', 500);
   }
-}
-
-/* ── Doubao (Volcengine ARK — OpenAI-compatible) ──────────────────────────── */
-
-async function callDoubao(apiKey, systemPrompt, messages) {
-  if (!apiKey) {
-    return jsonError(
-      'DOUBAO_API_KEY 未配置。若当前是分支预览链接，请在 Cloudflare 项目 Settings → Environment variables 中为 **Preview** 添加 DOUBAO_API_KEY 并重新部署。',
-      500
-    );
-  }
-
-  const upstream = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'doubao-seed-1-6-lite-251015',
-      messages: [{ role: 'system', content: systemPrompt }, ...messages],
-      stream: true,
-      max_tokens: 2048,
-      temperature: 0.7,
-    }),
-  });
-
-  if (!upstream.ok) {
-    const errText = await upstream.text();
-    return jsonError(`豆包 API 错误 (${upstream.status}): ${errText}`, upstream.status);
-  }
-
-  // The upstream SSE stream is already in OpenAI format — pipe it directly
-  return new Response(upstream.body, {
-    headers: { ...CORS_HEADERS, 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },
-  });
 }
 
 /* ── Gemini (Google Generative Language) ──────────────────────────────────── */

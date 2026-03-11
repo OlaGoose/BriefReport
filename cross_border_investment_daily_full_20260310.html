@@ -866,21 +866,12 @@
         }
         .ai-chat-icon { width: 17px; height: 17px; color: var(--gold); flex-shrink: 0; }
         .ai-chat-controls { display: flex; align-items: center; gap: 10px; }
-
-        .ai-model-select {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(184,150,42,0.38);
+        .ai-chat-header .ai-model-chip {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(184,150,42,0.4);
             color: var(--gold-light);
-            font-size: 11.5px;
-            font-family: var(--sans);
-            padding: 4px 9px;
-            border-radius: var(--r-sm);
-            cursor: pointer;
-            outline: none;
-            transition: border-color 0.15s;
+            font-size: 11px;
         }
-        .ai-model-select:focus { border-color: var(--gold); }
-        .ai-model-select option { background: var(--navy); color: #e8e8f0; }
 
         .ai-chat-close {
             background: none;
@@ -1912,10 +1903,7 @@
                 <span>AI 分析助手</span>
             </div>
             <div class="ai-chat-controls">
-                <select id="ai-model-select" class="ai-model-select" aria-label="选择AI模型">
-                    <option value="doubao">豆包 Pro</option>
-                    <option value="gemini">Gemini 2.0</option>
-                </select>
+                <span class="ai-model-chip">Gemini 2.0</span>
                 <button class="ai-chat-close" id="ai-chat-close" aria-label="关闭">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -1993,7 +1981,6 @@
     var messagesEl  = document.getElementById('ai-messages');
     var inputEl     = document.getElementById('ai-input');
     var sendBtn     = document.getElementById('ai-send');
-    var modelSelect = document.getElementById('ai-model-select');
 
     /* ── Welcome message (generated once on first open) ────────────────── */
     var _welcomed = false;
@@ -2136,8 +2123,7 @@
         sendBtn.disabled = true;
         showThinking();
 
-        var model   = modelSelect.value;
-        var modelLabel = model === 'doubao' ? '豆包 Pro' : 'Gemini 2.0';
+        var modelLabel = 'Gemini 2.0';
 
         try {
             var resp = await fetch('/api/chat', {
@@ -2145,7 +2131,6 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     messages:    chatHistory.slice(-12), // keep last 12 turns
-                    model:       model,
                     pageContext: getPageContext()
                 })
             });
