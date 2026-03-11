@@ -61,14 +61,14 @@ async function callDoubao(apiKey, systemPrompt, messages) {
     );
   }
 
-  const upstream = await fetch('https://ark.volcengine.com/api/v3/chat/completions', {
+  const upstream = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: 'doubao-1-5-pro-32k-250115',
+      model: 'doubao-seed-1-6-lite-251015',
       messages: [{ role: 'system', content: systemPrompt }, ...messages],
       stream: true,
       max_tokens: 2048,

@@ -1006,13 +1006,18 @@
 
         /* ── Input area ── */
         .ai-input-area {
-            padding: 11px 12px;
+            padding: 11px 12px 11px;
             background: var(--white);
             border-top: 1px solid var(--border);
             display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex-shrink: 0;
+        }
+        .ai-input-row {
+            display: flex;
             gap: 8px;
             align-items: flex-end;
-            flex-shrink: 0;
         }
         .ai-input {
             flex: 1;
@@ -1031,6 +1036,78 @@
         }
         .ai-input:focus { border-color: var(--gold); background: var(--white); }
         .ai-input::placeholder { color: var(--text-muted); }
+        .ai-input--listening { border-color: #C0392B; background: #fff8f8; }
+
+        /* ── Mic button ── */
+        .ai-mic-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--r-md);
+            background: var(--navy);
+            border: none;
+            color: var(--gold-light);
+            cursor: pointer;
+            display: none; /* shown by JS when SpeechRecognition is available */
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s;
+        }
+        .ai-mic-btn:hover { background: var(--navy-mid); }
+        .ai-mic-btn svg { width: 16px; height: 16px; }
+        .ai-mic-btn--recording {
+            background: #C0392B;
+            animation: ai-mic-ring 1.4s ease-in-out infinite;
+        }
+        .ai-mic-btn--recording:hover { background: #E74C3C; }
+        @keyframes ai-mic-ring {
+            0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.55); }
+            55%      { box-shadow: 0 0 0 8px rgba(192,57,43,0); }
+        }
+
+        /* ── Voice status bar ── */
+        .ai-voice-bar {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 2px 8px;
+            font-size: 11.5px;
+            color: var(--text-light);
+        }
+        .ai-voice-bar--active { display: flex; }
+        .ai-voice-wave {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        .ai-voice-wave span {
+            display: block;
+            width: 3px;
+            border-radius: 2px;
+            background: var(--gold);
+            transform-origin: bottom center;
+            animation: ai-wave 1s ease-in-out infinite;
+        }
+        .ai-voice-wave span:nth-child(1) { height: 5px;  animation-delay: 0s; }
+        .ai-voice-wave span:nth-child(2) { height: 9px;  animation-delay: 0.12s; }
+        .ai-voice-wave span:nth-child(3) { height: 13px; animation-delay: 0.24s; }
+        .ai-voice-wave span:nth-child(4) { height: 9px;  animation-delay: 0.12s; }
+        .ai-voice-wave span:nth-child(5) { height: 5px;  animation-delay: 0s; }
+        @keyframes ai-wave {
+            0%,100% { transform: scaleY(0.35); opacity: 0.45; }
+            50%      { transform: scaleY(1);    opacity: 1; }
+        }
+        .ai-voice-bar-text { flex: 1; color: #C0392B; font-weight: 500; }
+        .ai-voice-lang {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 3px;
+            background: var(--cream);
+            border: 1px solid var(--border-light);
+            color: var(--text-light);
+        }
 
         .ai-send-btn {
             width: 36px;
@@ -1065,6 +1142,12 @@
             margin-bottom: 2px;
         }
 
+        /* 移动端：输入框至少 16px 可防止 iOS/Android 聚焦时自动放大页面 */
+        @media (max-width: 768px) {
+            .ai-input { font-size: 16px; }
+            .ai-mic-btn { width: 40px; height: 40px; }
+            .ai-send-btn { width: 40px; height: 40px; }
+        }
         @media (max-width: 460px) {
             #ai-chat-container { bottom: 16px; right: 16px; }
             .ai-chat-panel { width: calc(100vw - 32px); max-height: 500px; }
@@ -1935,20 +2018,39 @@
 
         <!-- Input area -->
         <div class="ai-input-area">
-            <textarea
-                id="ai-input"
-                class="ai-input"
-                placeholder="基于今日简报提问…"
-                rows="1"
-                maxlength="2000"
-                aria-label="输入问题"
-            ></textarea>
-            <button id="ai-send" class="ai-send-btn" aria-label="发送">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"/>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                </svg>
-            </button>
+            <!-- Voice status bar (visible while recording) -->
+            <div id="ai-voice-bar" class="ai-voice-bar" aria-live="polite" aria-atomic="true">
+                <span class="ai-voice-wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </span>
+                <span id="ai-voice-bar-text" class="ai-voice-bar-text">正在聆听…</span>
+                <span class="ai-voice-lang">普通话</span>
+            </div>
+            <!-- Input row -->
+            <div class="ai-input-row">
+                <textarea
+                    id="ai-input"
+                    class="ai-input"
+                    placeholder="基于今日简报提问…"
+                    rows="1"
+                    maxlength="2000"
+                    aria-label="输入问题"
+                ></textarea>
+                <button id="ai-voice-btn" class="ai-mic-btn" aria-label="语音输入" title="语音输入（中文普通话）">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
+                <button id="ai-send" class="ai-send-btn" aria-label="发送">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </div>
         </div>
 
     </div><!-- /.ai-chat-panel -->
@@ -1994,6 +2096,9 @@
     var inputEl     = document.getElementById('ai-input');
     var sendBtn     = document.getElementById('ai-send');
     var modelSelect = document.getElementById('ai-model-select');
+    var voiceBtn    = document.getElementById('ai-voice-btn');
+    var voiceBar    = document.getElementById('ai-voice-bar');
+    var voiceBarTxt = document.getElementById('ai-voice-bar-text');
 
     /* ── Welcome message (generated once on first open) ────────────────── */
     var _welcomed = false;
@@ -2117,6 +2222,139 @@
         var el = document.getElementById('ai-thinking');
         if (el) el.remove();
     }
+
+    /* ── Voice Input (Web Speech API) ──────────────────────────────────── */
+    (function () {
+        var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) return; // not supported — button stays hidden
+
+        // Show the mic button now that we know SR is available
+        voiceBtn.style.display = 'flex';
+
+        var recognition  = null;
+        var isRecording  = false;
+        var voiceBase    = ''; // committed final transcript
+        var voiceInterim = ''; // current interim (display only)
+
+        var MIC_ICON =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>' +
+            '<path d="M19 10v2a7 7 0 0 1-14 0v-2"/>' +
+            '<line x1="12" y1="19" x2="12" y2="23"/>' +
+            '<line x1="8" y1="23" x2="16" y2="23"/>' +
+            '</svg>';
+        var STOP_ICON =
+            '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none">' +
+            '<rect x="5" y="5" width="14" height="14" rx="2"/>' +
+            '</svg>';
+
+        function buildRecognition() {
+            var r = new SR();
+            r.lang            = 'zh-CN';
+            r.interimResults  = true;
+            r.continuous      = false; // safest on iOS Safari
+            r.maxAlternatives = 1;
+
+            r.onstart = function () {
+                voiceBtn.classList.add('ai-mic-btn--recording');
+                voiceBtn.innerHTML = STOP_ICON;
+                voiceBtn.setAttribute('aria-label', '停止语音输入');
+                inputEl.classList.add('ai-input--listening');
+                voiceBar.classList.add('ai-voice-bar--active');
+                voiceBarTxt.textContent = '正在聆听…';
+            };
+
+            r.onresult = function (e) {
+                var interim = '';
+                for (var i = e.resultIndex; i < e.results.length; i++) {
+                    var t = e.results[i][0].transcript;
+                    if (e.results[i].isFinal) {
+                        voiceBase += t;
+                    } else {
+                        interim += t;
+                    }
+                }
+                voiceInterim = interim;
+                inputEl.value = voiceBase + voiceInterim;
+                if (voiceInterim) {
+                    voiceBarTxt.textContent = '识别中…';
+                }
+                autoResize();
+            };
+
+            r.onerror = function (e) {
+                if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+                    voiceBarTxt.textContent = '请允许麦克风权限后重试';
+                    isRecording = false;
+                    setTimeout(finishRecording, 1800);
+                }
+                // 'no-speech' is handled by onend → auto-restart
+            };
+
+            r.onend = function () {
+                if (isRecording) {
+                    // Auto-restart to give continuous-listening feel
+                    voiceBarTxt.textContent = '正在聆听…';
+                    try { r.start(); } catch (err) { /* already started */ }
+                } else {
+                    finishRecording();
+                }
+            };
+
+            return r;
+        }
+
+        function startRecording() {
+            isRecording  = true;
+            voiceBase    = inputEl.value; // preserve any existing typed text
+            voiceInterim = '';
+            recognition  = buildRecognition();
+            try {
+                recognition.start();
+            } catch (err) {
+                isRecording = false;
+                finishRecording();
+            }
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            // Commit any pending interim as final before stopping
+            if (voiceInterim) {
+                voiceBase   += voiceInterim;
+                voiceInterim = '';
+            }
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+            }
+        }
+
+        function finishRecording() {
+            voiceBtn.classList.remove('ai-mic-btn--recording');
+            voiceBtn.innerHTML = MIC_ICON;
+            voiceBtn.setAttribute('aria-label', '语音输入');
+            inputEl.classList.remove('ai-input--listening');
+            voiceBar.classList.remove('ai-voice-bar--active');
+            inputEl.value = voiceBase;
+            autoResize();
+            inputEl.focus();
+        }
+
+        voiceBtn.addEventListener('click', function () {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        });
+
+        // Stop recording when panel closes
+        var origClose = closePanel;
+        closePanel = function () {
+            if (isRecording) stopRecording();
+            origClose();
+        };
+    })();
 
     /* ── Main send function ─────────────────────────────────────────────── */
     async function sendMessage() {
