@@ -1,4 +1,4 @@
 # Cloudflare Pages 静态站点配置
 # 项目名需与 Cloudflare 控制台里创建的 Pages 项目一致
-name = "BriefReport"
+name = "briefreport"
 pages_build_output_dir = "."
