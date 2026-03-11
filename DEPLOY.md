@@ -86,6 +86,41 @@ git push -u origin main
 2. 把整个「简报」文件夹拖进去（或打包成 zip 上传），需包含 `cross_border_investment_daily_full_20260310.html`
 3. 部署完成后，访问同上形式的 URL。
 
+### 部署特性分支（如 feature/ai-chat）并配置 AI Key
+
+若你使用 **feature/ai-chat** 分支（带 AI 聊天助手），需要：
+
+1. **确保特性分支已推送到 GitHub**  
+   ```bash
+   git push -u origin feature/ai-chat
+   ```
+
+2. **在 Cloudflare 中启用分支部署**  
+   - 打开 [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → 选择你的 Pages 项目（如 `briefreport` / `jianbao`）
+   - 左侧 **Settings** → **Builds & deployments**
+   - 找到 **Branch deployments**：开启 **Allow branch deployments**（若尚未开启）
+   - 在 **Branch build control** 中可添加 `feature/ai-chat`，或保持「除 production 外所有分支都部署」
+   - 保存后，下次 push 到 `feature/ai-chat` 时，CF 会自动为该分支生成一个预览 URL，例如：  
+     **https://feature-ai-chat.你的项目名.pages.dev**
+
+3. **为预览环境配置 AI 环境变量**  
+   - 在同一项目内：**Settings** → **Environment variables**
+   - 点击 **Add variable**（可先选 **Preview**，这样只对预览/分支部署生效；若希望生产环境也用，再为 **Production** 添加相同变量）
+   - 添加两条变量（**Encrypt** 建议勾选）：
+
+   | 变量名 | 值 | 说明 |
+   |--------|-----|------|
+   | `DOUBAO_API_KEY` | 你的火山引擎 ARK API 密钥 | 豆包 Pro，[获取地址](https://console.volcengine.com/ark/region:ark+cn-beijing/apiKey) |
+   | `GEMINI_API_KEY` | 你的 Google AI Studio API 密钥 | Gemini 2.0，[获取地址](https://aistudio.google.com/app/apikey) |
+
+   - **Save** 后，重新部署一次该分支（**Deployments** 里找到最新一次 **Retry deployment**，或再 `git push` 一次），环境变量才会注入到 Functions。
+
+4. **验证**  
+   - 打开该分支的预览链接（如 `https://feature-ai-chat.briefreport.pages.dev`）
+   - 点击右下角 AI 聊天按钮，选择模型（豆包 Pro / Gemini 2.0）并发送一条消息，能正常回复即说明 Key 已生效。
+
+**小结**：特性分支推送到 GitHub → CF 自动为分支建预览 → 在 **Settings → Environment variables** 里为 Preview（或 Production）配置 `DOUBAO_API_KEY` 和 `GEMINI_API_KEY` → 重部署一次 → 用预览 URL 测试 AI 聊天。
+
 ---
 
 ## 可选：用 index.html 做首页（更短的网址）
