@@ -8,19 +8,18 @@
 
 ## 关联 GitHub 并推送
 
-1. 在 GitHub 上新建一个仓库（如 `jianbao` 或 `cross-border-daily`），不要勾选「Initialize with README」。
-2. 在终端执行（把 `YOUR_USERNAME` 和 `YOUR_REPO` 换成你的用户名和仓库名）：
+1. 在 GitHub 上新建仓库 **jianbao**（不要勾选「Initialize with README」）。
+2. 在终端执行（把 `你的GitHub用户名` 换成你的 GitHub 用户名）：
 
 ```bash
 cd /Users/xukaikai/Desktop/简报
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git branch -M main
+git remote add origin https://github.com/你的GitHub用户名/jianbao.git
 git push -u origin main
 ```
 
 若使用 SSH：
 
 ```bash
-git remote add origin git@github.com:YOUR_USERNAME/YOUR_REPO.git
+git remote add origin git@github.com:你的GitHub用户名/jianbao.git
 git push -u origin main
 ```

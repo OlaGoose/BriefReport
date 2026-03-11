@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨境投资日报 · 2026年3月10日</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ================================================================
+           DESIGN TOKENS
+        ================================================================ */
+        :root {
+            --navy:         #08172E;
+            --navy-mid:     #122545;
+            --navy-rule:    rgba(255,255,255,0.07);
+
+            --gold:         #B8962A;
+            --gold-mid:     #D4AF50;
+            --gold-light:   #EDD98A;
+            --gold-bg:      #FBF7EE;
+            --gold-border:  #E5D090;
+
+            --cream:        #F3EFEA;
+            --cream-dark:   #EAE5DB;
+            --cream-mid:    #F8F5F0;
+
+            --white:        #FFFFFF;
+
+            --text:         #19192A;
+            --text-mid:     #393950;
+            --text-light:   #6A6A80;
+            --text-muted:   #9898A8;
+
+            --border:       #DCDACC; /* slightly warm */
+            --border-light: #EAE8DC;
+
+            --red:          #7A1515;
+            --red-mid:      #9E2020;
+            --red-bg:       #FEF2F2;
+            --red-border:   #E8BABA;
+
+            --green:        #0B4A2A;
+            --green-mid:    #116636;
+            --green-bg:     #EFF8F3;
+            --green-border: #AADBBF;
+
+            --amber:        #7A4800;
+            --amber-bg:     #FEF7EC;
+            --amber-border: #E8CFA0;
+
+            --info:         #1A3F7A;
+            --info-bg:      #EEF3FB;
+            --info-border:  #A8C4E8;
+
+            --serif:   'Playfair Display', Georgia, 'Songti SC', '宋体', serif;
+            --sans:    'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+            --r-sm:  3px;
+            --r-md:  6px;
+
+            --shadow-card: 0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+        }
+
+        /* ================================================================
+           RESET & BASE
+        ================================================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 14px;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: #E5E0D8;
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* ================================================================
+           PAGE WRAPPER
+        ================================================================ */
+        .page {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            background: var(--cream);
+            overflow: hidden; /* clip any child overflow */
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.10),
+                0 8px 48px rgba(0,0,0,0.18),
+                0 2px 12px rgba(0,0,0,0.10);
+        }
+
+        /* ================================================================
+           MASTHEAD / HEADER
+        ================================================================ */
+        .masthead {
+            background: var(--navy);
+            color: #fff;
+            border-top: 4px solid var(--gold-mid);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle diagonal rule pattern */
+        .masthead::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(
+                -52deg,
+                transparent,
+                transparent 18px,
+                rgba(255,255,255,0.012) 18px,
+                rgba(255,255,255,0.012) 36px
+            );
+            pointer-events: none;
+        }
+
+        /* Right side radial glow */
+        .masthead::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -80px;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184,150,42,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Top bar */
+        .masthead-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding: 9px 44px;
+            border-bottom: 1px solid var(--navy-rule);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Split Chinese/Latin so letter-spacing only applies to Latin */
+        .masthead-brand {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold-mid);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        .brand-cn {
+            letter-spacing: 0.04em; /* subtle for Chinese */
+        }
+
+        .brand-sep {
+            margin: 0 7px;
+            opacity: 0.45;
+            letter-spacing: 0;
+        }
+
+        .brand-en {
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+
+        .masthead-date {
+            font-size: 11px;
+            letter-spacing: 0.04em; /* minimal; contains Chinese */
+            color: rgba(255,255,255,0.38);
+            font-weight: 400;
+        }
+
+        /* Main masthead body */
+        .masthead-body {
+            padding: 40px 44px 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .masthead-kicker {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold-mid);
+        }
+
+        .masthead-kicker::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        .kicker-en {
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .kicker-sep {
+            letter-spacing: 0;
+            margin: 0 6px;
+            opacity: 0.5;
+        }
+
+        .kicker-cn {
+            letter-spacing: 0.04em; /* Chinese: minimal tracking */
+        }
+
+        h1.masthead-title {
+            font-family: var(--serif);
+            font-size: 44px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.18;
+            margin-bottom: 10px;
+            letter-spacing: 0; /* Chinese serif: no letter-spacing */
+        }
+
+        .masthead-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            font-weight: 400; /* 300 renders too thin on macOS */
+            letter-spacing: 0.08em; /* Latin subtitle */
+        }
+
+        /* Source bar */
+        .masthead-sources {
+            padding: 10px 44px;
+            background: rgba(0,0,0,0.28);
+            border-top: 1px solid var(--navy-rule);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .masthead-sources-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em; /* Latin ALL-CAPS label */
+            color: rgba(255,255,255,0.35);
+        }
+
+        .masthead-sources-list {
+            font-size: 11px;
+            color: rgba(255,255,255,0.38);
+            letter-spacing: 0.02em;
+        }
+
+        /* ================================================================
+           CONTENT AREA
+        ================================================================ */
+        .content {
+            padding: 36px 44px;
+        }
+
+        /* ================================================================
+           SECTIONS
+        ================================================================ */
+        .section {
+            margin-bottom: 36px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--navy);
+            box-shadow: var(--shadow-card);
+        }
+
+        .section--risk  { border-top-color: var(--red-mid); }
+        .section--data  { border-top-color: var(--green-mid); }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 22px;
+            background: var(--navy);
+            background-image: repeating-linear-gradient(
+                -52deg,
+                transparent,
+                transparent 18px,
+                rgba(255,255,255,0.012) 18px,
+                rgba(255,255,255,0.012) 36px
+            );
+            position: relative;
+        }
+
+        .section--risk  .section-header { background: #1C0808; }
+        .section--data  .section-header { background: #071A0E; }
+
+        .section-num {
+            width: 24px;
+            height: 24px;
+            border: 1.5px solid rgba(255,255,255,0.22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.75);
+            flex-shrink: 0;
+            letter-spacing: 0;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            /* Do NOT use text-transform: uppercase for Chinese titles */
+            letter-spacing: 0.05em; /* minimal, respects Chinese characters */
+            flex: 1;
+        }
+
+        /* ================================================================
+           TAGS
+        ================================================================ */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 2px;
+            font-size: 10px;  /* 9px→10px: min readable for CJK+Latin */
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .tag-key {
+            background: rgba(184,150,42,0.18);
+            color: #EACF7A;
+            border-color: rgba(184,150,42,0.32);
+        }
+
+        .tag-new {
+            background: rgba(46,179,100,0.16);
+            color: #88D8A8;
+            border-color: rgba(46,179,100,0.28);
+        }
+
+        .tag-urgent {
+            background: rgba(210,60,60,0.18);
+            color: #F2A0A0;
+            border-color: rgba(210,60,60,0.30);
+        }
+
+        /* ================================================================
+           SECTION BODY
+        ================================================================ */
+        .section-body { padding: 0; }
+
+        /* ================================================================
+           HIGHLIGHT / LEAD STORY BOX
+        ================================================================ */
+        .lead-story {
+            background: var(--gold-bg);
+            border-left: 4px solid var(--gold);
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--gold-border);
+        }
+
+        .lead-story-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em; /* Latin-only label */
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lead-story-label::before {
+            content: '';
+            display: block;
+            width: 14px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .lead-story strong {
+            font-family: var(--serif);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            letter-spacing: 0;
+        }
+
+        .lead-story-body {
+            font-size: 14px;
+            color: var(--text-mid);
+            line-height: 1.78;
+        }
+
+        /* ================================================================
+           NEWS ITEMS
+        ================================================================ */
+        .news-item {
+            padding: 22px 22px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            font-family: var(--serif);
+            font-size: 16.5px;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.45;
+            padding-bottom: 14px;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border-light);
+            letter-spacing: 0; /* Chinese title: no tracking */
+        }
+
+        /* Label–Content grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 88px 1fr;
+            gap: 0;
+        }
+
+        .news-label {
+            font-size: 11px;   /* 10px→11px: minimum readable */
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em; /* Chinese labels: near-zero tracking */
+            padding: 11px 12px 11px 0;
+            border-top: 1px solid var(--border-light);
+            line-height: 1.5;
+            align-self: flex-start;
+        }
+
+        .news-content {
+            font-size: 14px;   /* 13.5px→14px: round number, better rendering */
+            color: var(--text-mid);
+            line-height: 1.8;
+            padding: 11px 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* First row: no top border, tighter start */
+        .news-grid > :nth-child(1),
+        .news-grid > :nth-child(2) {
+            border-top: none;
+        }
+
+        /* ================================================================
+           INLINE HIGHLIGHT
+        ================================================================ */
+        .highlight {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* ================================================================
+           DETAIL LIST
+        ================================================================ */
+        ul.detail-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.detail-list li {
+            padding: 4px 0 4px 18px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-mid);
+            line-height: 1.72;
+        }
+
+        ul.detail-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 13px;
+            line-height: 1.68;
+        }
+
+        /* ================================================================
+           OPPORTUNITY / RISK TEXT
+        ================================================================ */
+        .opportunity {
+            color: var(--green-mid);
+            font-weight: 500;
+        }
+
+        .risk {
+            color: var(--red-mid);
+            font-weight: 500;
+        }
+
+        /* ================================================================
+           SOURCE BOX
+        ================================================================ */
+        .source-box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 9px 0 18px;
+            margin-top: 12px;
+            border-top: 1px dashed var(--border-light);
+            font-size: 11px;   /* 10.5px→11px */
+            color: var(--text-muted);
+        }
+
+        .source-box strong {
+            font-size: 11px;   /* 8.5px→11px: was dangerously small */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-right: 3px;
+        }
+
+        .source-box a {
+            color: var(--info);
+            font-weight: 500;
+            border-bottom: 1px solid rgba(26,63,122,0.2);
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .source-box a:hover {
+            color: var(--navy);
+            border-bottom-color: var(--navy);
+        }
+
+        .source-sep {
+            color: var(--border);
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        /* ================================================================
+           METRICS BAR
+        ================================================================ */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+            border-bottom: 1px solid var(--border-light);
+            background: var(--cream-mid);
+        }
+
+        .metric-item {
+            padding: 18px 16px 16px;
+            border-right: 1px solid var(--border-light);
+            text-align: center;
+            background: var(--white);
+            position: relative;
+        }
+
+        .metric-item:last-child { border-right: none; }
+
+        /* Thin gold top accent on each metric */
+        .metric-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--gold);
+            opacity: 0.4;
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 7px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-label {
+            font-size: 11px;   /* 10.5px→11px */
+            color: var(--text-light);
+            line-height: 1.45;
+        }
+
+        /* ================================================================
+           DATA SECTION METRICS (bottom summary)
+        ================================================================ */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        @media (max-width: 700px) {
+            .data-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ================================================================
+           DIVIDERS & SEPARATORS
+        ================================================================ */
+        .section-rule {
+            border: none;
+            border-top: 1px solid var(--border-light);
+            margin: 0;
+        }
+
+        /* ================================================================
+           FOOTER
+        ================================================================ */
+        .footer {
+            background: var(--navy);
+            color: rgba(255,255,255,0.65);
+            padding: 26px 44px;
+            border-top: 3px solid var(--gold-mid);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(
+                -52deg,
+                transparent,
+                transparent 18px,
+                rgba(255,255,255,0.010) 18px,
+                rgba(255,255,255,0.010) 36px
+            );
+            pointer-events: none;
+        }
+
+        .footer-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.4);
+            max-width: 640px;
+        }
+
+        .footer-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .footer-issue {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold-mid);
+            letter-spacing: 0.04em; /* contains Chinese date */
+            margin-bottom: 4px;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;   /* 10px→11px */
+            color: rgba(255,255,255,0.28);
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           RESPONSIVE
+        ================================================================ */
+        @media (max-width: 860px) {
+            .masthead-topbar,
+            .masthead-body,
+            .masthead-sources,
+            .content { padding-left: 22px; padding-right: 22px; }
+
+            h1.masthead-title { font-size: 34px; }
+
+            .news-grid { grid-template-columns: 80px 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .masthead-topbar { flex-direction: column; gap: 4px; align-items: flex-start; }
+
+            h1.masthead-title { font-size: 26px; }
+
+            .news-grid { grid-template-columns: 1fr; }
+
+            .news-label {
+                border-top: none !important;
+                padding-top: 12px;
+                padding-bottom: 3px;
+                font-size: 11px; /* keep 11px minimum */
+                color: var(--gold);
+                letter-spacing: 0.04em; /* Chinese labels: near-zero */
+            }
+
+            .news-content {
+                border-top: none !important;
+                padding-top: 2px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .news-grid > :nth-child(1) { padding-top: 0; }
+
+            .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+            .data-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .footer-inner { flex-direction: column; gap: 16px; }
+            .footer-right { text-align: left; }
+        }
+
+        /* ================================================================
+           PRINT
+        ================================================================ */
+        @media print {
+            body { background: #fff; }
+            .page { box-shadow: none; max-width: 100%; }
+            .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .section { break-inside: avoid; }
+            .news-item { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- ================================================================
+         MASTHEAD
+    ================================================================ -->
+    <header class="masthead">
+        <div class="masthead-topbar">
+            <div class="masthead-brand">
+                <span class="brand-cn">跨境投资团队</span>
+                <span class="brand-sep">&middot;</span>
+                <span class="brand-en">Cross-Border Investment Intelligence</span>
+            </div>
+            <div class="masthead-date">Vol.&thinsp;1 &middot; 2026年3月10日 &middot; 星期二</div>
+        </div>
+
+        <div class="masthead-body">
+            <div class="masthead-kicker"><span class="kicker-en">Daily Briefing</span><span class="kicker-sep"> &middot; </span><span class="kicker-cn">第1期</span></div>
+            <h1 class="masthead-title">跨境投资团队每日财经简报</h1>
+            <div class="masthead-subtitle">Global Cross-Border Investment Daily Briefing</div>
+        </div>
+
+        <div class="masthead-sources">
+            <span class="masthead-sources-label">信源</span>
+            <span class="masthead-sources-list">Bloomberg &nbsp;&middot;&nbsp; Reuters &nbsp;&middot;&nbsp; Financial Times &nbsp;&middot;&nbsp; WSJ &nbsp;&middot;&nbsp; ECB &nbsp;&middot;&nbsp; Federal Reserve &nbsp;&middot;&nbsp; Global SWF &nbsp;&middot;&nbsp; CRE Daily</span>
+        </div>
+    </header>
+
+    <!-- ================================================================
+         MAIN CONTENT
+    ================================================================ -->
+    <main class="content">
+
+        <!-- ── 第一部分：全球宏观与货币政策 ───────────────────────── -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-num">1</div>
+                <div class="section-title">全球宏观与货币政策</div>
+                <span class="tag tag-key">基础层</span>
+            </div>
+            <div class="section-body">
+
+                <div class="news-item">
+                    <div class="news-title">美联储利率维持不变，市场聚焦3月11日CPI数据</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            美联储3月18日议息会议（3月10日处于静默期前），市场普遍预期维持利率不变。3月10日美国<span class="highlight">10年期国债收益率收于4.12%</span>（较3月6日4.15%微降），<span class="highlight">联邦基金利率维持在3.64%</span>水平。在能源价格飙升（中东冲突致油价突破$110/桶）和滞胀担忧下，美联储维持"更高更久"立场，全年降息预期压缩至60个基点。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            实际利率与黄金/白银价格呈现负相关性，贵金属避险配置窗口打开。Arthur Hayes预测Q1将有6120亿美元流动性注入市场，但Q2随TGA账户耗尽和税收季节可能逆转，风险资产或于3月见顶。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>3月11日CPI数据是否超预期（市场预期2.9%）</li>
+                                <li>美联储逆回购工具（RRP）余额变化（当前2370亿美元）</li>
+                                <li>美国财政部TGA账户消耗速度及4月税收季流动性回笼效应</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            贵金属（金银）避险配置窗口；关注美元流动性收紧前的资产再平衡；Q1把握高风险资产反弹窗口，Q2转向防御性配置。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.federalreserve.gov/releases/h15/" target="_blank">Federal Reserve H.15数据</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://themortgagereports.com/mortgage-rates" target="_blank">Mortgage Reports</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.bis.org/statistics/gli.htm" target="_blank">BIS全球流动性指标</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">欧洲央行发布周度资产负债表，货币政策正常化持续</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            ECB发布截至3月6日的合并财务数据：<span class="highlight">外汇储备净头寸增加4亿欧元至3355亿欧元</span>，公开市场操作净余额升至-2.373万亿欧元（因存款工具变化），<span class="highlight">基础货币减少116亿欧元至4.169万亿欧元</span>。资产购买计划（APP）持仓持续缩减。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            ECB资产负债表正常化稳步推进，QT节奏未变，为4月潜在降息铺路。ECB管委、法国央行行长Villeroy已宣布通胀战役胜利，HICP回归2%目标（2022年10月峰值10.6%），2025年上半年已四次降息。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>存款工具利率变化反映的银行流动性需求</li>
+                                <li>证券到期再投资停止后的市场冲击</li>
+                                <li>核心通胀是否持续低于2.5%</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            欧元区债券收益率曲线趋平，关注德国工业复苏相关的信贷资产；欧元区债券收益率趋于稳定，信贷条件改善，关注欧洲REITs及基础设施投资机会。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.ecb.europa.eu/press/pr/financial-statements/html/ecb.fs250306~f035c5c0a7.en.html" target="_blank">ECB官方财务声明</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.globalswf.com/news/swf-of-the-year-2025" target="_blank">Global SWF年度报告</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第二部分：中东主权基金与跨境资本流动 ────────────────── -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-num">2</div>
+                <div class="section-title">中东主权基金与跨境资本流动</div>
+                <span class="tag tag-key">战略层</span>
+            </div>
+            <div class="section-body">
+
+                <div class="lead-story">
+                    <div class="lead-story-label">重磅动态</div>
+                    <strong>沙特PIF宣布6000亿美元美国投资计划</strong>
+                    <div class="lead-story-body">
+                        3月10日确认，沙特PIF将投资6000亿美元于美国市场，涵盖科技、房地产、基础设施。此举标志着沙特暂停BRICS扩员进程后，战略重心转向巩固美沙同盟关系，并通过PIF实现资产多元化和美元资产配置。
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">PIF登顶2025年全球主权投资榜首，战略转向全球化</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            PIF 2025年投资支出达<span class="highlight">362亿美元</span>（同比增81%），其中<span class="highlight">288亿美元用于收购游戏巨头EA（持股93%）</span>。与BlackRock合作的BRIM平台推出沙特股票及中东固收共同基金，利雅得员工数量已三倍增长。PIF目标2030年成为3万亿美元投资巨头，目前已管理1.15万亿美元资产。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            PIF从2024年"国内聚焦"转向2025年"全球布局"，新六大核心投资领域：旅游 / 城市开发 / 先进制造 / 工业物流 / 清洁能源 / NEOM。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>6000亿投资的时间表和具体领域分配</li>
+                                <li>与Affinity Partners（库什纳基金）、Silver Lake的联合投资模式</li>
+                                <li>是否涉及敏感技术（AI芯片、量子计算）的CFIUS审查</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 与PIF共同投资美国科技/基础设施的联合GP机会；② 协助PIF筛选中国优质资产（半导体、新能源）的结构性安排；③ 参与PIF与Blackstone合作的BRIM平台（沙特股票及中东固收基金）。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.globalswf.com/news/swf-of-the-year-2025" target="_blank">Global SWF 2026年度报告</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.pif.gov.sa/" target="_blank">PIF官网</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.enterpriseam.com/news/saudi-pif-is-swfs-biggest-spender-in-2025/" target="_blank">Enterprise AM</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">海湾主权基金集体主导全球资本流向，AI成核心配置</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            2025年七大海湾主权基金共部署<span class="highlight">1260亿美元</span>（占全球主权投资43%），其中<span class="highlight">AI和数字化转型领域投入660亿美元</span>。Mubadala以327亿美元排名第二，ADIA（129亿）、QIA（166亿）、KIA（65亿）紧随其后。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            美国吸引GCC资本1318亿美元（同比翻倍），对华投资降至43亿美元（2024年为103亿）。GCC资本成为美国科技/基础设施/能源领域的"耐心资本"，但对华投资因地缘政治不确定性显著收缩。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>特朗普政府与中东的"美国优先"交易（F35军售、4000亿美元投资承诺、AI芯片出口松绑）</li>
+                                <li>AI基础设施投资是否泡沫化</li>
+                                <li>中国如何重新吸引GCC资本</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 协助中东基金投资中国优质资产（半导体、新能源）的结构性机会；② 跨境并购中作为中东LP的本地合作方；③ Private Credit领域（ADIA配置237亿、Mubadala 200亿）。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.finance-middleeast.com/news/gulf-swfs-dominate-2025-global-investment-landscape/" target="_blank">Finance Middle East</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.ao.com/news/2025-year-in-review-gulf-sovereign-wealth-funds-continue-to-drive-global-investment" target="_blank">A&amp;O Shearman</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第三部分：中美欧贸易政策 ──────────────────────────── -->
+        <section class="section section--risk">
+            <div class="section-header">
+                <div class="section-num">3</div>
+                <div class="section-title">中美欧贸易政策重大变动</div>
+                <span class="tag tag-urgent">紧急</span>
+            </div>
+            <div class="section-body">
+
+                <div class="news-item">
+                    <div class="news-title">特朗普推动对欧盟15–20%全面关税，第二贸易战前线开启</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日《金融时报》报道，特朗普顾问正推动对所有欧盟商品征收<span class="highlight">15–20%的最低关税</span>。消息发布后EUR/USD立即下跌，DAX面临双重打击（伊朗战争推高油价+美国关税威胁）。此前特朗普刚签署行政令，以《1974年贸易法》第122条替代被最高法院否决的IEEPA，实施<span class="highlight">10%全球基准关税</span>（有效期150天）。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            美国贸易政策进入"多法律工具组合"时代：第122条（10%全球临时关税）+ 第301条（针对特定国家/行业的高关税）+ 第232条（国家安全调查）。欧盟成为继中国后第二个全面关税目标，全球贸易碎片化加速。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>最高法院即将就IEEPA关税合法性作出裁决（预计3月内）</li>
+                                <li>德国5000亿欧元特别基金（Sondervermögen）能否抵消出口下滑</li>
+                                <li>宝马/奔驰/大众/BASF/西门子直接盈利冲击</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 关税波动期的供应链套利（合规前提下）；② 欧洲制造业向中国/东南亚转移的咨询需求；③ 欧盟-中国CAFTA 3.0升级后的替代市场机会。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.ft.com/content/trump-eu-tariffs-march-2026" target="_blank">Financial Times</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.capitalstreet.com/news/trump-tariffs-march-2026/" target="_blank">CapitalStreet</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://taxfoundation.org/research/all/federal/trump-tariffs-2025/" target="_blank">Tax Foundation</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">中美贸易关系：第六轮谈判前关税暂稳</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日确认，当前对华关税结构为：<span class="highlight">10%第122条普遍关税 + 17%第一阶段遗留关税 = 27%综合税率</span>（此前IEEPA下的20%芬太尼关税已被最高法院移除）。财长贝森特表示目标税率应在35–40%，预示新一轮调查将至。特朗普计划3月30日–4月2日访华，第六轮贸易谈判前双方释放缓和信号（USTR表示不追加5%关税）。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            关税工具从"IEEPA紧急权力"转向"第301条调查+第122条临时措施"的法定程序，节奏更慢但可预测性仍低。中国已将2026年GDP目标降至4.5–5%（30年来首次下调），优先刺激内需。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>3月30日特朗普访华成果及AI/量子计算/6G合作路线图</li>
+                                <li>中国稀土出口管制是否重启</li>
+                                <li>芬太尼前体化学品管控执行力度</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 中美AI技术合作的开源应用/大数据/机器人/绿色转型领域投资；② 中国"抱团出海"模式下的供应链金融；③ 人民币跨境结算服务需求。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.chinausfocus.com/finance-economy/us-china-trade-war-tariffs-march-2026" target="_blank">China-US Focus</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.capitalstreet.com/news/us-china-trade-march-2026/" target="_blank">CapitalStreet</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第四部分：生物医药与科技创新融资 ──────────────────── -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-num">4</div>
+                <div class="section-title">生物医药与科技创新融资</div>
+                <span class="tag tag-key">创新层</span>
+            </div>
+            <div class="section-body">
+
+                <div class="news-item">
+                    <div class="news-title">Breakout Ventures完成1.14亿美元Fund III募集，聚焦AI+神经科学</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日，Breakout Ventures宣布关闭<span class="highlight">1.14亿美元第三期基金</span>，专注投资"AI驱动的科学规模化"和神经科学领域。已投项目包括：Reach Industries（实验室机器人软件）、未披露的计算化学小分子发现公司、未披露的科学商业化公司。此前投资的Noetik（AI生物技术）在2025年与Agenus达成精准免疫疗法合作，2026年初获<span class="highlight">GSK 5000万美元预付款</span>。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            早期VC（种子-A轮）持续看好AI+生物技术交叉领域，单笔投资50万–500万美元，领投率50%，通常作为首家机构投资人。神经科学因生物标志物发现和电子健康数据分析工具而重新受到关注。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>Fund III的17–20笔投资部署节奏</li>
+                                <li>AI制药从"发现"到"临床"的转化效率</li>
+                                <li>GSK/Big Pharma对AI生物技术平台的并购意愿</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 与Breakout Ventures等早期基金建立联合投资关系；② 关注AI驱动的空间生物学（如Noetik模式）和实验室自动化；③ 生物医药信贷基金可关注临床前-临床阶段企业的非稀释性融资需求。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://cen.acs.org/business/investments/Breakout-Ventures-closes-114M-fund/104/i9" target="_blank">C&amp;EN</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://thenextweb.com/news/breakout-ventures-fund-iii-ai-neuroscience" target="_blank">The Next Web</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">国际生物技术信托展望改善，M&A活动回升</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日，国际生物技术信托（International Biotechnology Trust）发布市场展望：经过动荡的2025年，2026年初行业情绪显著改善。IPO管道有<span class="highlight">20–30家企业排队</span>，1月前两周股权融资已超<span class="highlight">30亿美元</span>（延续2025年下半年势头）。FDA新任局长Marty Makary强调缩短"发明到患者"路径，增加历史对照使用，减少多阶段III期试验依赖。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            生物医药行业从"资本纪律"转向"选择性复苏"，头部10%公司通过精准R&D和战略合作脱颖而出。肥胖症（口服GLP-1）、免疫学、肿瘤学、CNS领域临床数据读出备受期待。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>20–30家IPO企业的估值定价和市场需求</li>
+                                <li>FDA监管灵活性提升对临床试验成本的影响</li>
+                                <li>大型药企M&A的"资本充足但标的稀缺"困境</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 后期阶段企业的pre-IPO交叉轮融资；② 口服GLP-1疗法的差异化投资机会；③ 生物医药信贷基金可关注IPO窗口打开前的过桥融资需求。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.trustnet.com/news/markets/international-biotechnology-trust-outlook-2026" target="_blank">Trustnet</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第五部分：跨境电商与海外仓投资 ───────────────────── -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-num">5</div>
+                <div class="section-title">跨境电商与海外仓投资</div>
+                <span class="tag tag-new">新增重点</span>
+            </div>
+            <div class="section-body">
+
+                <div class="metrics-bar">
+                    <div class="metric-item">
+                        <span class="metric-value">6.5%</span>
+                        <div class="metric-label">Shein 2026年增速预测<br>从超增长骤降至个位数</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">13.4%</span>
+                        <div class="metric-label">Temu 2026年增速预测<br>从530% CAGR大幅放缓</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">$7000亿</span>
+                        <div class="metric-label">科技巨头2026年<br>AI基础设施投资（Blackstone预计）</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">$1400亿</span>
+                        <div class="metric-label">Blackstone数据中心<br>资产管理规模</div>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">美国工业地产需求激增，Blackstone领跑物流+数据中心投资</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日CRE Daily报道，美国再工业化推动工业地产需求加速，<span class="highlight">Blackstone优先配置物流和数据中心资产</span>。Blackstone全球房地产主管Nadeem Meghji表示，物流和数据中心是核心组合资产，目前管理约<span class="highlight">1400亿美元数据中心资产</span>，土地储备可支撑同等规模开发。科技巨头（微软、谷歌、Meta、亚马逊）预计2026年投资近<span class="highlight">7000亿美元</span>于AI基础设施。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            工业物流地产与AI基础设施的协同效应显现：数据中心建设带动周边物流需求（设备运输、维护物资存储），而物流自动化（机器人、AI库存管理）提升仓库运营效率。2025年工业地产租赁创历史第二佳绩。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>Blackstone计划推出公开交易的数据中心收购载体，降低投资门槛</li>
+                                <li>prime工业用地转为数据中心用途导致的现代仓储设施稀缺</li>
+                                <li>部分市场工业空置率上升（新供应超出租户吸纳）与核心资产紧缺的结构性分化</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 与Blackstone合作投资二线物流市场（内陆帝国、德州）的增值型机会；② 海外仓基金可关注美墨边境近岸外包相关的冷链/温控设施；③ 为科技巨头AI基础设施配套的物流地产开发。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.credaily.com/blackstone-logistics-data-center-investment-2026" target="_blank">CRE Daily</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.costar.com/" target="_blank">CoStar</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">冷链物流领导者大会召开，行业面临技术+贸易双重变革</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日，全球冷链联盟（GCCA）在印度孟买举办"冷链领导者大会"，开启温控物流新十年。同日，Cold-Link Logistics宣布普罗维登斯冷库设施重大扩建计划。行业面临<span class="highlight">紧急附加费飙升至4000美元/箱</span>，"滞留时间"成为冷链完整性的首要敌人。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            2026年冷链物流进入关键转型期：① 自动化+AI（机器人、预测性维护）降低劳动力依赖；② GLP-1药物（需严格温控）重塑医药冷链需求；③ 气候波动性加剧，备用能源系统成为标配；④ 贸易紧张（USMCA 7月续签不确定性）延迟跨境投资项目。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>自动化仓库的AI集成与数据安全</li>
+                                <li>拉美（占全球食品出口25%）物流枢纽扩建机会</li>
+                                <li>最后一公里B2B配送的合规与基础设施挑战</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 投资拉美港口附近的多温区物流枢纽（Emergent Cold LatAm模式）；② 医药冷链的GLP-1药物专用仓储设施；③ 为跨境电商提供温控海外仓的差异化服务（生鲜、保健品）。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.gcca.org/events/cold-chain-leaders-conference-2026" target="_blank">Global Cold Chain Alliance</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.coldfacts.com/" target="_blank">Cold Facts Magazine</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://lasvegassun.com/news/2026/mar/10/cold-chain-logistics-expansion/" target="_blank">Las Vegas Sun</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">跨境电商进入"战略调整期"，Amazon Haul挑战Shein/Temu</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日行业动态确认，2026年跨境电商从"超增长"转向"战略定位"：① <span class="highlight">Shein增速骤降至6.5%</span>（2026年预测）；② <span class="highlight">Temu从530% CAGR放缓至13.4%</span>；③ Amazon通过<span class="highlight">Haul（桌面端）</span>和<span class="highlight">Bazaar（移动端）</span>双轨进入超低价市场，直接挑战Shein/Temu；④ 社交商务成为增长引擎，TikTok Shop引领直播购物，YouTube/Twitch深度整合电商。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            跨境电商竞争维度从"价格+速度"转向"数据控制+基础设施+注意力捕获"。欧盟2026年起取消150欧元以下包裹免税，法国提议征收10欧元/件附加费，Moldova计划2026年夏对Temu/Shein/AliExpress包裹征收20%增值税+5–10%关税。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>Amazon Haul的供应链效率能否匹配中国平台的低成本结构</li>
+                                <li>欧盟/各国小额包裹税收政策对跨境电商物流模式的冲击</li>
+                                <li>社交电商的AI驱动发现工具（OpenAI、Perplexity）重塑消费者决策路径</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 为Amazon Haul/Bazaar提供第三方物流服务的合作机会；② 海外仓基金投资欧洲本地履约中心（规避小额包裹关税风险）；③ 社交电商+直播购物的技术基础设施（支付、物流、清关）。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.ecdb.com/news/cross-border-e-commerce-trends-2026" target="_blank">ECDB</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.linkedin.com/pulse/nex-ecommerce-report-march-2026" target="_blank">LinkedIn Nex eCommerce</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.lechommerces.fr/news/eu-tariffs-shein-temu-2026" target="_blank">Lechommerces.fr</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.infomarket.md/news/moldova-temu-shein-tariffs-2026" target="_blank">InfoMarket.md</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">全球M&A创纪录开局，电商物流领域交易活跃</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日Law360报道，2026年全球M&A交易额创纪录开局，达<span class="highlight">8133亿美元</span>（尽管交易量下降）。3月10日同日，Trust Stamp宣布完成两笔战略M&A交易（身份验证技术），显示科技赋能型并购持续活跃。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            电商物流领域的M&A逻辑从"规模扩张"转向"技术赋能"：AI驱动的库存管理、自动化仓储、实时追踪成为估值溢价核心。2025年Q4至2026年Q1，Aurora Innovation（自动驾驶卡车）、project44（供应链可视化）、Symbotic（仓库自动化）等获大额融资。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>科技巨头7000亿美元AI基础设施投资带动的物流自动化需求</li>
+                                <li>跨境电商平台的整合并购（Amazon收购、Shein/Temu的防御性合作）</li>
+                                <li>冷链物流的ESG合规（碳足迹追踪、绿色能源）要求</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 投资物流SaaS平台（清关自动化、实时追踪）的Pre-IPO轮次；② 与主权基金（PIF、Norges Bank）共同投资欧美物流基础设施；③ 收购distressed的中小型3PL企业，整合后出售给Amazon/Shein等平台。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.law360.com/articles/2026-global-ma-record" target="_blank">Law360</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.globenewswire.com/news-release/2026/03/10/trust-stamp-ma-transactions" target="_blank">GlobeNewswire</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.gartner.com/en/supply-chain/research" target="_blank">Gartner Supply Chain Research</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">Norges Bank与Blackstone合作8亿美元美国物流基金</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日确认，<span class="highlight">挪威主权财富基金（Norges Bank Investment Management）</span>与Blackstone合作，投资<span class="highlight">8亿美元</span>于美国及欧洲物流仓储基金。该基金聚焦现代化物流设施，以满足电商和供应链重构需求。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            主权财富基金持续加码物流基础设施，2025年GIP（Blackstone旗下）和EQT牵头财团以334亿美元收购AES（QIA、CalPERS共同投资），显示清洁能源+基础设施的协同配置逻辑。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>8亿美元投资的地域分配（美国vs欧洲）</li>
+                                <li>与Blackstone的GP-LP合作条款（管理费、业绩分成）</li>
+                                <li>物流地产的ESG合规（碳中和仓库）要求</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 与Norges Bank共同投资亚太物流基础设施的联合投资平台；② 为中东主权基金（PIF/ADIA/QIA）配置中国/东南亚物流资产提供咨询服务。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.marketsgroup.com/news/norges-blackstone-logistics-fund-2026" target="_blank">Markets Group</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">Blackstone旗下Link Logistics出售洛杉矶工业资产</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日，Blackstone的Link Logistics以<span class="highlight">1.16亿美元</span>出售位于洛杉矶Van Nuys机场附近的两栋全出租工业建筑，买家为CIRE Equity。该资产为Link Logistics在洛杉矶工业市场主动资产管理的一部分。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            美国工业物流地产市场呈现"核心资产溢价出售+边缘资产持有"的分化策略。Blackstone通过Link Logistics（美国最大工业地产平台之一）持续优化组合，释放资本用于更高回报的AI基础设施/数据中心投资。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>洛杉矶工业地产租金增长是否见顶</li>
+                                <li>Blackstone/Link Logistics出售所得资金的再投资方向（AI基础设施？）</li>
+                                <li>CIRE Equity等中型买家的杠杆水平和收购节奏</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 跟踪Blackstone Real Estate的"卖旧买新"策略，寻找联合投资AI数据中心的机会；② 关注二线物流市场（内陆帝国、德州）的收益率利差；③ 海外仓基金可关注美墨边境近岸外包相关的物流设施。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.commercialobserver.com/2026/03/10/blackstone-link-logistics-los-angeles-sale" target="_blank">Commercial Observer</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第六部分：基础设施与物流投资 ─────────────────────── -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-num">6</div>
+                <div class="section-title">基础设施与物流投资</div>
+                <span class="tag tag-key">资产层</span>
+            </div>
+            <div class="section-body">
+
+                <div class="news-item">
+                    <div class="news-title">全球M&A创纪录开局，科技赋能型交易主导</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            3月10日Law360报道，2026年全球M&A交易额创纪录开局，达<span class="highlight">8133亿美元</span>（尽管交易量下降）。3月10日同日，Trust Stamp宣布完成两笔战略M&A交易（身份验证技术），显示科技赋能型并购持续活跃。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            基础设施与物流领域的M&A逻辑从"规模扩张"转向"技术赋能"：AI驱动的库存管理、自动化仓储、实时追踪成为估值溢价核心。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>科技巨头7000亿美元AI基础设施投资带动的物流自动化需求</li>
+                                <li>主权财富基金（Norges Bank、PIF、QIA）在基础设施领域的配置节奏</li>
+                                <li>ESG合规（碳足迹追踪、绿色能源）对估值的影响</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 投资物流SaaS平台（清关自动化、实时追踪）的Pre-IPO轮次；② 与主权基金共同投资欧美物流基础设施；③ 收购distressed的中小型3PL企业，整合后出售给平台方。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.law360.com/articles/2026-global-ma-record" target="_blank">Law360</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.globenewswire.com/news-release/2026/03/10/trust-stamp-ma-transactions" target="_blank">GlobeNewswire</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 第七部分：风险预警与地缘政治 ─────────────────────── -->
+        <section class="section section--risk">
+            <div class="section-header">
+                <div class="section-num">7</div>
+                <div class="section-title">风险预警与地缘政治</div>
+                <span class="tag tag-urgent">风险层</span>
+            </div>
+            <div class="section-body">
+
+                <div class="news-item">
+                    <div class="news-title">美国商业地产风险集中于银行体系，多户型住宅成压力点</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            美国商业地产困境不在REITs而在银行体系（银行持有60% CRE贷款）。未来两年<span class="highlight">2万亿美元CRE债务到期</span>，多户型住宅净损失2025年Q1达<span class="highlight">7.67亿美元</span>（创2012年以来季度新高）。2020–2022年通过CRE CLO融资的转型期资产因利率飙升难以再融资，被迫进入银行仓库融资线。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            区域性银行面临资本金压力和监管审查，可能被迫折价出售贷款，为distressed investors创造机会。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>特殊服务率（special servicing rate）升至25年高点（办公物业）</li>
+                                <li>银行对多户型住宅贷款的损失准备金计提</li>
+                                <li>美联储利率政策对refinancing window的影响</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 与银行合作承接distressed multifamily debt（需等待银行策略明朗）；② 投资已计提损失的银行股权（逆向投资）；③ 关注REITs中已剥离风险资产的高质量标的。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.sumstreet.com/research/commercial-real-estate-distress-2026" target="_blank">Summer Street Research</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">中美关税战2025年升级时间线（回顾与前瞻）</div>
+                    <div class="news-grid">
+                        <div class="news-label">概要</div>
+                        <div class="news-content">
+                            2025年2–4月关税快速升级：2月4日美国对中国商品加征10%关税，3月3日提升至20%，4月2日宣布对中国34%（后升至145%），中国反制至125%。5月12日日内瓦协议暂降至30%，但10月10日特朗普宣布额外加征100%，11月1日起总税率达130%。11月后达成新协议：中国暂停稀土出口管制、停止芬太尼前体出口、采购美国大豆（2025年底1200万吨，2026–2028年每年2500万吨），美国暂停部分关税。
+                        </div>
+
+                        <div class="news-label">影响</div>
+                        <div class="news-content">
+                            中美贸易关系进入"协议-升级-再协议"的波动周期，关税税率在30%–145%间剧烈波动，企业供应链规划难度极大。
+                        </div>
+
+                        <div class="news-label">关注</div>
+                        <div class="news-content">
+                            <ul class="detail-list">
+                                <li>11月协议中稀土出口一般许可的具体执行</li>
+                                <li>2026年大豆采购承诺的履行情况</li>
+                                <li>特朗普政府是否重启"301调查"（海事、物流、造船领域）</li>
+                            </ul>
+                        </div>
+
+                        <div class="news-label">机会</div>
+                        <div class="news-content opportunity">
+                            ① 关税波动期的套利贸易（需严格合规）；② 中国替代供应商（巴西大豆、东南亚制造）的投资机会；③ 协助中国企业海外产能布局（墨西哥、越南）的咨询服务。
+                        </div>
+                    </div>
+                    <div class="source-box">
+                        <strong>来源</strong>
+                        <a href="https://www.inc.com/trump-tariffs-timeline-2025" target="_blank">INC关税时间线</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.whitehouse.gov/briefing-room/statements-releases/2025/11/15/us-china-trade-agreement/" target="_blank">白宫事实清单</a>
+                        <span class="source-sep">|</span>
+                        <a href="https://www.reallogistics.com/news/us-china-trade-war-2025" target="_blank">Real Logistics</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── 今日关键数据速览 ────────────────────────────────── -->
+        <section class="section section--data">
+            <div class="section-header">
+                <div class="section-num" style="font-size:12px; border-style:dashed;">D</div>
+                <div class="section-title">今日关键数据速览</div>
+            </div>
+            <div class="section-body">
+                <div class="metrics-bar data-grid">
+                    <div class="metric-item">
+                        <span class="metric-value">4.12%</span>
+                        <div class="metric-label">美国10年期国债收益率<br>较3月6日4.15%微降</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">3.64%</span>
+                        <div class="metric-label">联邦基金有效利率<br>维持不变</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">&#9660; EUR</span>
+                        <div class="metric-label">EUR/USD<br>受欧盟关税威胁拖累</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">&gt;$100</span>
+                        <div class="metric-label">布伦特原油<br>中东冲突溢价</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">6.5%</span>
+                        <div class="metric-label">Shein 2026年增速预测<br>从超增长骤降个位数</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">13.4%</span>
+                        <div class="metric-label">Temu 2026年增速预测<br>从530% CAGR大幅放缓</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">$7000亿</span>
+                        <div class="metric-label">科技巨头2026年<br>AI基础设施投资</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">$8133亿</span>
+                        <div class="metric-label">2026年全球M&amp;A<br>开局交易额（创纪录）</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================================
+         FOOTER
+    ================================================================ -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand">跨境投资团队 &nbsp;|&nbsp; Global Cross-Border Investment Team</div>
+                <div class="footer-text">
+                    本简报基于Bloomberg、Reuters、Financial Times、WSJ、ECB、Federal Reserve、Global SWF、CRE Daily、GCCA等公开信息编制
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-issue">第1期 &nbsp;·&nbsp; 2026年3月10日</div>
+                <div class="footer-disclaimer">
+                    仅供参考<br>不构成投资建议
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
