@@ -950,9 +950,11 @@
         }
         .ai-message--assistant .ai-message-bubble {
             background: var(--white);
-            border: 1px solid var(--border-light);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
             border-left: 3px solid var(--gold);
-            border-radius: 2px 10px 10px 10px;
+            border-radius: 0 10px 10px 3px;
             color: var(--text);
         }
 
@@ -1928,20 +1930,8 @@
             <span>已读取今日简报 · 可直接提问</span>
         </div>
 
-        <!-- Messages list -->
-        <div id="ai-messages" class="ai-messages" role="log" aria-live="polite">
-            <div class="ai-message ai-message--assistant">
-                <div class="ai-message-bubble">
-                    您好！我已读取今日《跨境投资日报》全文，可为您提供深度分析与解答。<br><br>试试这些问题：
-                    <ul class="ai-welcome-list" role="list">
-                        <li>沙特PIF此次美国投资计划的战略逻辑是什么？</li>
-                        <li>美中欧关税博弈对跨境电商有何影响？</li>
-                        <li>全球M&amp;A创纪录背后的主要驱动力？</li>
-                        <li>美国CRE债务到期风险如何影响跨境资本？</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <!-- Messages list — populated dynamically by JS -->
+        <div id="ai-messages" class="ai-messages" role="log" aria-live="polite"></div>
 
         <!-- Input area -->
         <div class="ai-input-area">
@@ -2005,11 +1995,33 @@
     var sendBtn     = document.getElementById('ai-send');
     var modelSelect = document.getElementById('ai-model-select');
 
+    /* ── Welcome message (generated once on first open) ────────────────── */
+    var _welcomed = false;
+    function showWelcome() {
+        if (_welcomed) return;
+        _welcomed = true;
+        var wrap   = document.createElement('div');
+        var bubble = document.createElement('div');
+        wrap.className   = 'ai-message ai-message--assistant';
+        bubble.className = 'ai-message-bubble';
+        bubble.innerHTML =
+            '您好！我已读取今日《跨境投资日报》全文，可为您提供深度分析与解答。<br><br>试试这些问题：' +
+            '<ul class="ai-welcome-list" role="list">' +
+            '<li>沙特PIF此次美国投资计划的战略逻辑是什么？</li>' +
+            '<li>美中欧关税博弈对跨境电商有何影响？</li>' +
+            '<li>全球M&amp;A创纪录背后的主要驱动力？</li>' +
+            '<li>美国CRE债务到期风险如何影响跨境资本？</li>' +
+            '</ul>';
+        wrap.appendChild(bubble);
+        messagesEl.appendChild(wrap);
+    }
+
     /* ── Open / close ───────────────────────────────────────────────────── */
     function openPanel() {
         isOpen = true;
         panel.classList.add('ai-panel-open');
         panel.removeAttribute('aria-hidden');
+        showWelcome();
         inputEl.focus();
         getPageContext(); // warm up
     }
